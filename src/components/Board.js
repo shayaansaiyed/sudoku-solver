@@ -2,25 +2,42 @@ import React from 'react';
 import Square from './Square'
 import './../App.css';
 
-function generateRow(){
+var sampleGrid = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
+
+function generateRow(array){
     var row = []
     for (let i = 0; i < 9; i++){
-        row.push(<Square />);
+        if (array[i] != 0){
+            row.push(<Square value={array[i]}/>);
+        } else {
+            row.push(<Square value=' '/>);
+        }
+        
     }
     return row;
 }
 
-function generateGrid(){
+function generateGrid(input2DArr){
     var grid = [];
     for (let i = 0; i < 9; i++){
-        var row = generateRow()
+        var row = generateRow(input2DArr[i])
         grid.push(<li>{row}</li>);
     }
     return grid;
 }
 
 function Board() {
-  let grid = generateGrid();  
+  let grid = generateGrid(sampleGrid);  
 
   return (
     <div className="board">
