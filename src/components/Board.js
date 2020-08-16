@@ -1,47 +1,45 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Square from './Square'
 import './../App.css';
 
-var sampleGrid = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-]
+function Board(props) {
+  let initGrid = new Array(9);
+  for (var i = 0; i < 9; i++){
+    initGrid[i] = new Array(9);
+  }
 
-function generateRow(array){
+  let [grid, setGrid] = useState(initGrid)
+  
+  let generateRow = (array, rowNum) => {
     var row = []
     for (let i = 0; i < 9; i++){
-        if (array[i] != 0){
-            row.push(<Square value={array[i]}/>);
+        if (array[i] !== 0){
+            row.push(<Square value={array[i]} row={rowNum} col={i} handleChange={handleValueChange}/>);
         } else {
-            row.push(<Square value=' '/>);
+            row.push(<Square value=' ' row={rowNum} col={i} handleChange={handleValueChange}/>);
         }
-        
     }
     return row;
-}
+  }
 
-function generateGrid(input2DArr){
-    var grid = [];
+  let generateGrid = (input2DArr) => {
+    var tempgrid = [];
     for (let i = 0; i < 9; i++){
-        var row = generateRow(input2DArr[i])
-        grid.push(<li>{row}</li>);
+        var row = generateRow(input2DArr[i], i)
+        tempgrid.push(<li>{row}</li>);
     }
-    return grid;
-}
+    return tempgrid;
+  }
 
-function Board() {
-  let grid = generateGrid(sampleGrid);  
+  let handleValueChange = (row, col, val) => {
+    let tempGrid = grid.slice();
+    tempGrid[row][col] = val;
+    setGrid(tempGrid);
+  }
 
   return (
     <div className="board">
-        <ul>{grid}</ul>
+        <ul>{generateGrid(grid)}</ul>
     </div>
   );
 }
