@@ -3,7 +3,7 @@ import './../App.css';
 
 function Square(props) {
   let handleChange = (event) => {
-    props.handleChange(props.row, props.col, event.target.value);
+    props.handleChange(props.row, props.col, parseInt(event.target.value));
   }
 
   return (

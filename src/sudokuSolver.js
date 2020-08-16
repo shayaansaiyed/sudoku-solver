@@ -90,11 +90,10 @@ function SudokuSolverRec(grid, row, col){
     return found;
 }
 
-function SolveSudoku(grid){
+export function SolveSudoku(grid){
+    console.log("Called into module");
+    console.table(grid);
     SudokuSolverRec(grid, 0, 0);
+    console.table(grid);
     return grid;
-}
-
-export var main = (grid) => {
-    console.table(SolveSudoku(grid));
 }

@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import Square from './Square'
 import './../App.css';
-import {main} from './../sudokuSolver';
+import {SolveSudoku} from './../sudokuSolver';
 
 function Board(props) {
   let initGrid = new Array(9);
   for (var i = 0; i < 9; i++){
-    initGrid[i] = new Array(9);
+    initGrid[i] = new Array(9).fill(0);
   }
 
   let [grid, setGrid] = useState(initGrid)
@@ -17,7 +17,7 @@ function Board(props) {
         if (array[i] !== 0){
             row.push(<Square value={array[i]} row={rowNum} col={i} handleChange={handleValueChange}/>);
         } else {
-            row.push(<Square value=' ' row={rowNum} col={i} handleChange={handleValueChange}/>);
+            row.push(<Square value='' row={rowNum} col={i} handleChange={handleValueChange}/>);
         }
     }
     return row;
@@ -38,10 +38,22 @@ function Board(props) {
     setGrid(tempGrid);
   }
 
+  let callSudokuSolver = () => {
+    let tempGrid = grid.slice();
+    SolveSudoku(tempGrid);
+    console.log("Done Solving");
+    setGrid(tempGrid);
+  }
+
   return (
-    <div className="board">
-        <ul>{generateGrid(grid)}</ul>
-    </div>
+    <>  
+        <div className="board">
+            <ul>{generateGrid(grid)}</ul>
+        </div>
+        <button onClick={() => {callSudokuSolver()}}>
+            Solve For ME!
+        </button>
+    </>
   );
 }
 
