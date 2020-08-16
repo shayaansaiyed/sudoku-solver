@@ -15,6 +15,7 @@ var sampleGrid = [
 ]
 
 function App() {
+
   return (
     <div className="App">
       <Board grid={sampleGrid}/>

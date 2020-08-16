@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Square from './Square'
 import './../App.css';
+import {main} from './../sudokuSolver';
 
 function Board(props) {
   let initGrid = new Array(9);
